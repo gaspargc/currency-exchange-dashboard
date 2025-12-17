@@ -11,12 +11,15 @@ Also available on a [Vercel Deploy](https://currency-exchange-dashboard-opmpxpav
 Important things to consider:
 - The project took around 4 hours (I took extra time to finish the docs).
 - I did not implement a bonus feature due to time constraints.
-- Request retries, loading states and error handling can improve.
+- I assumed the API cant cause crashes due to excesive data handling.
 - I used AI in the following cases:
   - GitHub Copilot was used to improve coding efficiency, mainly for autocompletion, minor error fixes, and generating the website background.
   - ChatGPT was used to generate an initial template for the main React components. However, these components were heavily modified, and only the styling was retained. It was also used throughout the project to resolve questions related to React and Next.js. However, at no point was the generated code evaluated or modified.
 
-
+What could be improved with more time:
+- Improved UI responsiveness and animations to make the application more user-friendly.
+- More robust error handling, including dedicated error screens and clearer feedback to the user.
+- Retry mechanisms to handle timeouts or temporary loss of network connectivity.
 
 
 ## Prerequisites
