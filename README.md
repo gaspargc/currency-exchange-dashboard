@@ -3,7 +3,7 @@
 
 # Currency Exchange Dashboard
 
-A Currency Exchange Dashboard built with Next.js and React that allows users to convert currencies and track real-time exchange rate using Frankfuter API.
+A Currency Exchange Dashboard built with Next.js and React that allows users to convert currencies and track real-time exchange rate using Frankfurter API.
 
 Also available on a [Vercel Deploy](https://currency-exchange-dashboard-ten.vercel.app/).
 
