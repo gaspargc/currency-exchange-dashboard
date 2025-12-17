@@ -47,8 +47,8 @@ What could be improved with more time:
 Create a `.env.local` file at the root of the project and set your API URL:
 
 ```
-API_BASE_URL=https://yourdomain.com/api
-NEXT_PUBLIC_API_URL=https://yourdomain.com/api
+API_BASE_URL=https://api.frankfurter.dev/v1/
+NEXT_PUBLIC_API_URL=https://api.frankfurter.dev/v1/
 ```
 
 Replace the URLs with your backend or currency API endpoint.
