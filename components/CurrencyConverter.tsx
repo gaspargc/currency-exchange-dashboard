@@ -1,5 +1,6 @@
 'use client';
-import { useMemo, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import CurrencySelector from "./CurrencySelector";
 import { IoSwapVertical } from "react-icons/io5";
 
 type Props = {
@@ -18,6 +19,12 @@ const CurrencyConverter = ({ currencies }: Props) => {
       if (!from || !to) return;
       const baseUrl = process.env.NEXT_PUBLIC_API_URL;
       if (!baseUrl) return;
+
+      if (from === to) {
+        setRate("1");
+        return;
+      }
+      
       await fetch(`${baseUrl}/latest?base=${from}&symbols=${to}`)
         .then((resp) => resp.json())
         .then((data) => {
@@ -33,14 +40,8 @@ const CurrencyConverter = ({ currencies }: Props) => {
     if (!rate || !amount) return;
 
     async function convert() {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL;
-      if (!baseUrl) return;
-      await fetch(`${baseUrl}/latest?base=${from}&symbols=${to}`)
-        .then((resp) => resp.json())
-        .then((data) => {
-          const convertedAmount = (Number(amount) * data.rates[to]).toFixed(2);
-          setConverted(convertedAmount);
-        });
+      const convertedAmount = (Number(amount) * parseFloat(rate)).toFixed(2);
+      setConverted(convertedAmount);
     }
 
     convert();
@@ -58,7 +59,7 @@ const CurrencyConverter = ({ currencies }: Props) => {
   }
 
   return (
-      <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-xl">
+      <div className="self-start rounded-2xl border border-slate-800 bg-slate-900/60 p-6 shadow-xl">
         <div className="space-y-3">
           {/* Amount */}
           <div className="rounded-xl border border-slate-800 bg-slate-950/40 p-4">
@@ -72,17 +73,7 @@ const CurrencyConverter = ({ currencies }: Props) => {
                   className="text-2xl font-semibold mt-1 w-full bg-transparent outline-none placeholder:text-slate-600"
                 />
                 <div className="w-24">
-                  <select
-                    value={from}
-                    onChange={(e) => setFrom(e.target.value)}
-                    className="w-full rounded-xl border border-slate-800 bg-slate-950/40 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
-                  >
-                    {currencies.map((c) => (
-                      <option key={c.symbol} value={c.symbol}>
-                        {c.symbol}
-                      </option>
-                    ))}
-                  </select>
+                  <CurrencySelector value={from} onChange={setFrom} currencies={currencies} />
                 </div>
               </div>
             </div>
@@ -103,17 +94,7 @@ const CurrencyConverter = ({ currencies }: Props) => {
                 {converted || "0"}
               </div>
               <div className="w-24">
-                <select
-                  value={to}
-                  onChange={(e) => setTo(e.target.value)}
-                  className="w-full rounded-xl border border-slate-800 bg-slate-950/40 px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
-                >
-                  {currencies.map((c) => (
-                    <option key={c.symbol} value={c.symbol}>
-                      {c.symbol}
-                    </option>
-                  ))}
-                </select>
+                <CurrencySelector value={to} onChange={setTo} currencies={currencies} />
               </div>
             </div>
           </div>
